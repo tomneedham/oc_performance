@@ -1,3 +1,4 @@
 <?php
 
-echo 'Starting test script';
+echo 'Starting test...';
+echo file_get_contents('http://owncloud');
