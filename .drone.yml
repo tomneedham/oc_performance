@@ -1,11 +1,30 @@
-test:
-  image: php:7.2.0-cli
-  commands: php run.php
+pipeline:
+  test:
+    image: php:7.2.0-cli
+    commands: php run.php
 
-compose:
+services:
   owncloud:
-    image: owncloud/server:$$OWNCLOUD_VERSION
-
+    image: owncloud/server:${OWNCLOUD_VERSION}
+    environment:
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=database
+      - OWNCLOUD_ADMIN_USERNAME=admin
+      - OWNCLOUD_ADMIN_PASSWORD=admin
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=redis
+  redis:
+    image: redis
+  database:
+    image: mariadb:latest
+    environment:
+      - MYSQL_DATABASE=owncloud
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
 
 matrix:
   OWNCLOUD_VERSION:
