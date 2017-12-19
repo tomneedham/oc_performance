@@ -25,7 +25,9 @@ pipeline:
     detach: true
   test:
     image: php:7.2.0-cli
-    commands: php run.php
+    commands:
+      - sleep 30
+      - php run.php
 
 matrix:
   OWNCLOUD_VERSION:
