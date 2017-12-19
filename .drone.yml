@@ -1,0 +1,14 @@
+test:
+  image: php:7.2.0-cli
+  commands: php run.php
+
+compose:
+  owncloud:
+    image: owncloud/server:$$OWNCLOUD_VERSION
+
+
+matrix:
+  OWNCLOUD_VERSION:
+    - 9.0.7
+    - 9.1.7
+    - 10.0.3
